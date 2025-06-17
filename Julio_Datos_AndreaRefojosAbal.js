@@ -1,0 +1,1 @@
+const info_entrega = [Julio, '77015262S', 'Refojos Abal Andrea', 40];

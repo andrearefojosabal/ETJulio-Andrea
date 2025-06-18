@@ -1,156 +1,423 @@
-/*
-General
-*/
-
-.bordeado{
-	border-width: 1;
-	border-style: solid;
+/* --------- Reset y base --------- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-#header_page{
-	font-size: 60;
-	text-align: center;
-}
-
-/*
- formulario
-*/
-
-.div_IU_form {
-	width:100%; /*Toma el 100% del ancho de la página*/
-	height:100%; /*Toma el 100% del alto de la página*/
-	position:fixed; /*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
-	/*background-color: rgba(1, 1, 1, 0.95); /*Color de fondo, incluye opacidad del 90%*/
-	top:0; /*Position superior*/
-	left:0; /*Posición lateral*/
-	z-index:1001; /*Evitamos que algún elemento del blog sobreponga la ventana modal*/
-
-}
-
-.div_IU_test {
-    width:100%; /*Toma el 100% del ancho de la página*/
-    height:100%; /*Toma el 100% del alto de la página*/
-    position:fixed; /*Con este código hacemos que el contenedor se mantenga en la pantalla y para que tome las dimensiones del body y no de la entrada*/
-    /*background-color: rgba(1, 1, 1, 0.95); /*Color de fondo, incluye opacidad del 90%*/
-    top:0; /*Position superior*/
-    left:0; /*Posición lateral*/
-    z-index:1002; /*Evitamos que algún elemento del blog sobreponga la ventana modal*/
-
-}
-
-    .contenidoForm { 
-        background: rgba(217, 213, 213, 0.95);
-        position: absolute;
-        z-index: 20;
-        border-radius: 5px;
-        width: 80%;
-        height: 78.5%;
-        margin-top: 6%;
-        margin-left: 7%;
-        border: 1px;
-        border-style: solid;
-        overflow-y: scroll;
-        overflow-x: scroll;
-        scroll-behavior: smooth;
-}
-
-.contenidoTest { 
-        background: rgba(217, 213, 213, 0.95);
-        /*position: absolute;
-        z-index: 20;
-        border-radius: 5px;
-        width: 80%;
-        height: 78.5%;
-        margin-top: 6%;
-        margin-left: 7%;
-        border: 1px;
-        border-style: solid;*/
-        overflow-y: scroll;
-        overflow-x: scroll;
-        scroll-behavior: smooth;
-}
-
-#tablaresultadostest tbody tr th{
-    width: 10%;
-    word-wrap: break-word;
-}
-
-    .formulario{
-        top: 20px;
-        position: relative;
-        left: 20px;
-}
-
-.class_titulo_form{
-    position: relative;
-    height: 100px;
+html,
+body {
     width: 100%;
-
-    background: #ffff99;
-    color: #333;
+    min-height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f8f8f8;
+    color: #222;
 }
 
-#class_contenido_titulo_form{
-    left: 50%;
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
+/* --------- Encabezado --------- */
+#header_page {
+    width: 100%;
+    background: #333;
+    color: #fff;
+    font-size: 2.5rem;
+    text-align: center;
+    padding: 1rem 0;
+    position: relative;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
 
+#header_page img {
+    width: 32px;
+    height: 32px;
+    margin: 0 0.3rem;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+#botonAPI,
+#botonTEST {
+    width: 32px;
+    height: 32px;
+    margin-left: 0.5rem;
+}
+
+/* --------- Menú --------- */
+nav.bordeado {
+    width: 100%;
+    background: #444;
+    color: #fff;
+    padding: 0.7rem 0;
+    text-align: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-bottom: 2px solid #222;
+}
+
+#div-menu {
+    width: 220px;
+    background: #fff;
+    border-right: 1px solid #ccc;
+    position: absolute;
+    top: 110px;
+    left: 0;
+    z-index: 200;
+    display: none;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+#div-menu ol {
+    list-style: none;
+    padding: 0.5rem 0;
+}
+
+#div-menu .opcionmenu {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+#div-menu .opcionmenu:hover {
+    background: #f0f0f0;
+}
+
+/* --------- Zona de trabajo --------- */
+#workspace {
+    margin: 2rem auto 0 auto;
+    max-width: 1200px;
+    min-height: 600px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+    padding: 2rem;
+    position: relative;
+}
+
+#title_page {
+    background: #eaeaea;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+    text-align: center;
+    display: block;
+}
+
+#id_tabla_datos {
+    margin-top: 1rem;
+    width: 100%;
+}
+
+#addysearch {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+#addysearch img {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+}
+
+#seleccioncolumnas {
+    min-width: 120px;
+    max-width: 200px;
+    height: 40px;
+    font-size: 1rem;
+}
+
+/* --------- Tablas --------- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+    background: #fafafa;
+    display: block;
+    overflow-x: auto;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 0.7rem;
+    text-align: left;
+    font-size: 1rem;
+    word-break: break-word;
+}
+
+thead {
+    background: #f5f5f5;
     font-weight: bold;
 }
 
-.errorcampo {
-  border: 1px solid red;
-  display: inline-block;
+tbody tr:nth-child(even) {
+    background: #f9f9f9;
 }
 
-.exitocampo {
-  border: 1px solid green;
-  display: inline-block;
-}
-
-#error_action_modal{
-    position: fixed;
-    z-index: 9999; 
-    display: none; 
-    border: 3px solid; 
-    border-radius: 10px; 
-    background-color: white; 
-    padding: 10px; 
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%);
-}
-
-#modal_action_overlay{
+/* --------- Formularios --------- */
+.div_IU_form,
+.div_IU_test {
+    width: 100vw;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    z-index: 1001;
+    background: rgba(1, 1, 1, 0.7);
+    display: none;
+    overflow: auto;
+}
+
+.contenidoForm,
+.contenidoTest {
+    background: #fff;
+    position: absolute;
+    z-index: 20;
+    border-radius: 8px;
+    left: 50px;
+    top: 50px;
+    right: 50px;
+    bottom: 50px;
+    width: auto;
+    height: auto;
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 100px);
+    padding: 2rem 1rem;
+    border: 1px solid #ccc;
+    overflow-x: auto;
+    overflow-y: auto;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+}
+
+.formulario {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.class_titulo_form {
+    background: #ffff99;
+    color: #333;
+    border-radius: 6px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* --------- Modal de mensajes de acción --------- */
+#error_action_modal {
+    position: fixed;
+    z-index: 9999;
+    display: none;
+    border: 3px solid #d32f2f;
+    border-radius: 10px;
+    background-color: #fff;
+    padding: 1.5rem 2rem;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #d32f2f;
+    font-size: 1.1rem;
+    box-shadow: 0 2px 16px rgba(0, 0, 0, 0.18);
+    overflow-x: auto;
+    overflow-y: auto;
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 100px);
+    word-break: break-word;
+}
+
+#modal_action_overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
     display: none;
     z-index: 9998;
 }
 
-/*
-seleccion columnas
-*/
-
-.dropdown{
-    display: inline-block;
-    position: relative;
+/* --------- Botones y feedback --------- */
+button,
+.formulario button,
+#div_boton button {
+    background: #1976d2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.7rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+    min-width: 44px;
+    min-height: 44px;
 }
 
-.dropdown-content{
-    display: none;
-    position: absolute;
+button:hover,
+.formulario button:hover,
+#div_boton button:hover {
+    background: #1565c0;
+}
+
+.errorcampo {
+    border: 2px solid #d32f2f !important;
+    background: #ffeaea;
+}
+
+.exitocampo {
+    border: 2px solid #388e3c !important;
+    background: #eaffea;
+}
+
+/* --------- Pie de página --------- */
+footer.bordeado {
     width: 100%;
-    overflow: auto;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    background: #333;
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    z-index: 100;
+    font-size: 1rem;
 }
 
-.dropdown:hover .dropdown-content{
+/* --------- Modales con scroll para tests y definiciones --------- */
+/* --------- Modal único para tests y pruebas --------- */
+#div_IU_test {
+    margin: 1vw;
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 2000;
+    background: rgba(1, 1, 1, 0.7);
+    display: none;
+    overflow: auto;
+}
+
+#div_IU_test .contenidoTest {
+    background: #fff;
+    position: absolute;
+    z-index: 2020;
+    border-radius: 8px;
+    left: 50px;
+    top: 50px;
+    right: 50px;
+    bottom: 50px;
+    width: auto;
+    height: auto;
+    max-width: calc(100vw - 100px);
+    max-height: calc(100vh - 100px);
+    padding: 2rem 1rem;
+    border: 1px solid #ccc;
+    overflow: auto;
+    /* Scroll ÚNICO para todo el contenido */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+/* Elimina scroll internos de los bloques hijos */
+#div_IU_test #contenidoTests,
+#div_IU_test #contenidoPruebas,
+#div_IU_test #resultadopruebas {
+    overflow: visible !important;
+    max-height: none !important;
+}
+
+/* Tablas dentro del modal: scroll horizontal si es necesario */
+#div_IU_test table {
+    min-width: 600px;
+    max-width: 100%;
+    overflow-x: auto;
     display: block;
 }
 
+#div_IU_test td,
+#div_IU_test th {
+    min-width: 8vw;
+   /* white-space: pre-line;
+    word-break: break-word;*/
+}
+
+#div_IU_test h1,
+#div_IU_test p {
+    margin-bottom: 1rem;
+}
+
+#div_IU_test img,
+#div_IU_test button {
+    margin-top: 1.5rem;
+}
+
+/* --------- Responsive para el modal único --------- */
+@media (max-width: 1200px) {
+    #div_IU_test .contenidoTest {
+        left: 30px;
+        top: 30px;
+        right: 30px;
+        bottom: 30px;
+        max-width: calc(100vw - 60px);
+        max-height: calc(100vh - 60px);
+        padding: 1rem 0.3rem;
+    }
+}
+
+@media (max-width: 960px) {
+    #div_IU_test .contenidoTest {
+        left: 15px;
+        top: 15px;
+        right: 15px;
+        bottom: 15px;
+        max-width: calc(100vw - 30px);
+        max-height: calc(100vh - 30px);
+        padding: 1rem 0.3rem;
+    }
+}
+
+@media (max-width: 640px) {
+    #div_IU_test .contenidoTest {
+        left: 5px;
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+        max-width: calc(100vw - 10px);
+        max-height: calc(100vh - 10px);
+        border-radius: 0;
+        padding: 0.5rem 0.1rem;
+    }
+
+    #div_IU_test table {
+        min-width: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #header_page,
+    nav.bordeado,
+    #workspace,
+    .contenidoForm,
+    .contenidoTest,
+    footer.bordeado {
+        font-size: 0.9rem;
+    }
+
+    .class_titulo_form {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+}

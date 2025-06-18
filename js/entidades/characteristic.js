@@ -19,7 +19,7 @@ class characteristic extends Entidad_Abstracta {
             <div id="div_error_name_characteristic" class="error"></div>
 
             <label class="description_characteristic" for="description_characteristic"></label>
-            <textarea id="description_characteristic" name="description_characteristic"></textarea>
+            <input type="text" id="description_characteristic" name="description_characteristic"></input>
             <div id="div_error_description_characteristic" class="error"></div>
 
             <label class="data_type_characteristic" for="data_type_characteristic"></label>

@@ -172,10 +172,8 @@ class test_IU {
                 if (acciontest === 'SEARCH') {
                     resultadotest = eval('this.comprobar_' + campotest + '_SEARCH()');
                 } else {
-                    this.accion = acciontest;
                     resultadotest = eval('this.comprobar_' + campotest + '()');
                 }
-                if (resultadotest === true) resultadotest = true;
             } catch (e) {
                 resultadotest = 'ERROR_NO_FUNCION';
             }

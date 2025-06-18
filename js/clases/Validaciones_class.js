@@ -96,9 +96,8 @@ class Validaciones_Atomicas {
 	}
 
 	no_file(objfile) {
-		
 		console.log('no_file');
-		return objfile instanceof File && objfile.size > 0;
+		return objfile.length > 0;
 	}
 
 	file_type(objfile, array_tipos) {

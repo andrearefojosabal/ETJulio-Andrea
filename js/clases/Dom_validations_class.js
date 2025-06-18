@@ -15,6 +15,10 @@ class Dom_validations extends Dom {
         const reglas = atributo.validation_rules[accion];
         const validaciones = new Validaciones_Atomicas();
         let resultado;
+        if(campo === 'nuevo_file_characteristic') {
+            console.log(campo);
+            console.log(accion);
+        }
 
         for (const tipo in reglas) {
             const valor = reglas[tipo];
@@ -28,13 +32,15 @@ class Dom_validations extends Dom {
                     if (!resultado) return valor[1];
                     break;
                 case 'format':
+
                     resultado = validaciones.format(campo, valor[0]);
                     if (!resultado) return valor[1];
                     break;
                 case 'no_file':
-                    console.log('OK');
-                    resultado = validaciones.no_file(document.getElementById(campo).files[0]);
-                    if (!resultado) return valor;
+                    console.log('POR AQUI PASO 1');
+                    resultado = validaciones.no_file(campo, valor[0]);
+
+                    if (!resultado) return valor[1];
                     break;
                 case 'file_type':
                     const tiposArray = valor[0].replace(/'/g, "").split(',').map(t => t.trim());

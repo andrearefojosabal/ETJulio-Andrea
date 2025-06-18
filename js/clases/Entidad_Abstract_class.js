@@ -484,12 +484,13 @@ class Entidad_Abstracta extends Dom_validations {
 			// Comprobadores adicionales si es un campo tipo fichero
 			const esFichero = atributo.includes('file') || def.html?.type === 'file';
 			if (esFichero) {
-				console.log(`Creando métodos de comprobación para el campo de fichero: ${atributo}`);
-
 				const nombreNuevo = 'nuevo_' + atributo;
 				const nombreNuevoFuncion = 'comprobar_' + nombreNuevo;
 				if (typeof this[nombreNuevoFuncion] !== 'function') {
+					console.log('1');
 					this[nombreNuevoFuncion] = () => {
+						console.log('2');
+						this.accion= 'ADD'; // Aseguramos que la acción es ADD para este caso
 						const resultado = Dom_validations.prototype.comprobar_generico.call(this, nombreNuevo, estructura, this.accion);
 						if (resultado !== true) this.mostrar_error_campo(nombreNuevo, resultado);
 						else this.mostrar_exito_campo(nombreNuevo);

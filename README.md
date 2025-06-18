@@ -1,5 +1,4 @@
 Cosas que siguen sin funcionar/sin hacer: 
-  - API.html con la explicación de todos los métodos
   - Los formularios ADD, EDIT y SEARCH, no validan a medida que introduces los campos
   - Al enviar el formulario ADD siempre salta un pop-up "El id no ha llegado correctamente"
   - El formulario EDIT no carga el fichero, y permite editarlo pero devolviendo el campo fichero al back vacío

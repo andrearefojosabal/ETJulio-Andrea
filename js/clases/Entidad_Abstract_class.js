@@ -66,8 +66,11 @@ class Entidad_Abstracta extends Dom_validations {
 	createForm_ADD() {
 		this.accion = 'ADD';
 		this.createForm();
-		this.cargar_formulario();
+		this.crear_metodos_comprobar();
 		this.colocarvalidaciones('ADD');
+
+		//document.getElementById("IU_form").setAttribute('onsubmit', "return validar.comprobar_submit();");
+		//document.getElementById("IU_form").setAttribute('action', "javascript:validar.ADD();");
 		this.colocarboton('ADD');
 
 		const estructura = eval('estructura_' + this.entidad);
@@ -88,8 +91,6 @@ class Entidad_Abstracta extends Dom_validations {
 			}
 		}
 
-		this.crear_metodos_comprobar();
-
 		document.getElementById("IU_form").setAttribute('onsubmit', "return validar.comprobar_submit();");
 		document.getElementById("IU_form").setAttribute('action', "javascript:validar.ADD();");
 
@@ -101,8 +102,7 @@ class Entidad_Abstracta extends Dom_validations {
 		this.accion = 'EDIT';
 		this.createForm();
 		this.datos = JSON.parse(JSON.stringify(datos));
-		this.cargar_formulario();
-		this.load_data();
+		this.load_data(datos);
 		this.colocarvalidaciones('EDIT');
 		this.colocarboton('EDIT');
 
@@ -112,6 +112,9 @@ class Entidad_Abstracta extends Dom_validations {
 
 			if (def && def.is_pk && document.getElementById(atributo)) {
 				document.getElementById(atributo).disabled = true;
+			} else if (document.getElementById(atributo)) {
+				document.getElementById(atributo).disabled = false;
+				document.getElementById(atributo).removeAttribute('readonly');
 			}
 
 			if (atributo.includes('file') || def.html.type === 'file') {
@@ -139,7 +142,6 @@ class Entidad_Abstracta extends Dom_validations {
 	createForm_SEARCH() {
 		this.accion = 'SEARCH';
 		this.createForm();
-		this.cargar_formulario();
 		this.colocarvalidaciones('SEARCH');
 		this.colocarboton('SEARCH');
 
@@ -149,10 +151,6 @@ class Entidad_Abstracta extends Dom_validations {
 
 			if ((atributo.includes('file') || def.html.type === 'file') && document.getElementById(atributo)) {
 				document.getElementById(atributo).setAttribute('type', 'text');
-			}
-
-			if (document.getElementById(atributo)) {
-				document.getElementById(atributo).disabled = false;
 			}
 		}
 
@@ -169,8 +167,7 @@ class Entidad_Abstracta extends Dom_validations {
 		this.accion = 'DELETE';
 		this.createForm();
 		this.datos = JSON.parse(JSON.stringify(datos));
-		this.cargar_formulario();
-		this.load_data();
+		this.load_data(datos);
 		this.colocarboton('DELETE');
 
 		const estructura = eval('estructura_' + this.entidad);
@@ -178,57 +175,28 @@ class Entidad_Abstracta extends Dom_validations {
 			if (document.getElementById(atributo)) {
 				document.getElementById(atributo).disabled = true;
 			}
-
-			if ((atributo.includes('file') || estructura.attributes[atributo].html.type === 'file')) {
-				const labelNuevo = document.getElementById('label_nuevo_' + atributo);
-				const inputNuevo = document.getElementById('nuevo_' + atributo);
-				if (labelNuevo) labelNuevo.remove();
-				if (inputNuevo) inputNuevo.remove();
-				if (document.getElementById('link_' + atributo) && datos[atributo]) {
-					document.getElementById('link_' + atributo).href += datos[atributo];
-				}
-			}
 		}
-
-		this.crear_metodos_comprobar();
 
 		document.getElementById("IU_form").setAttribute('onsubmit', "return true;");
 		document.getElementById("IU_form").setAttribute('action', "javascript:validar.DELETE();");
 
-		document.getElementById("div_IU_form").style.display = 'block';
 		setLang();
 	}
 
-	createForm_SHOWCURRENT(datos) {
+	createForm_SHOWCURRENT(datos) { //✅
 		this.accion = 'SHOWCURRENT';
 		this.createForm();
 		this.datos = JSON.parse(JSON.stringify(datos));
-		this.cargar_formulario();
-		this.load_data();
+		this.load_data(datos);
+
 
 		const estructura = eval('estructura_' + this.entidad);
 		for (let atributo of estructura.attributes_list) {
 			if (document.getElementById(atributo)) {
 				document.getElementById(atributo).disabled = true;
 			}
-
-			if ((atributo.includes('file') || estructura.attributes[atributo].html.type === 'file')) {
-				const labelNuevo = document.getElementById('label_nuevo_' + atributo);
-				const inputNuevo = document.getElementById('nuevo_' + atributo);
-				if (labelNuevo) labelNuevo.remove();
-				if (inputNuevo) inputNuevo.remove();
-				if (document.getElementById('link_' + atributo) && datos[atributo]) {
-					document.getElementById('link_' + atributo).href += datos[atributo];
-				}
-			}
 		}
 
-		this.crear_metodos_comprobar();
-
-		document.getElementById("IU_form").setAttribute('onsubmit', "return true;");
-		document.getElementById("IU_form").setAttribute('action', "");
-
-		document.getElementById("div_IU_form").style.display = 'block';
 		setLang();
 	}
 
@@ -313,7 +281,7 @@ class Entidad_Abstracta extends Dom_validations {
 		await this.access_functions.back_request('IU_form', this.entidad, 'SEARCH')
 			.then((respuesta) => {
 
-				this.cargar_formulario_html();
+				this.cargar_formulario();
 				document.getElementById('muestradatostabla').removeAttribute('class');
 
 				document.getElementById("div_IU_form").style.display = 'none';
@@ -330,7 +298,7 @@ class Entidad_Abstracta extends Dom_validations {
 
 	async ADD() {
 
-		await this.access_functions.back_request('IU_form', this.entidad, 'DELETE')
+		await this.access_functions.back_request('IU_form', this.entidad, 'ADD')
 			.then((respuesta) => {
 
 				if (respuesta['ok']) {
@@ -391,12 +359,18 @@ class Entidad_Abstracta extends Dom_validations {
 	}
 
 	colocarvalidaciones(accion) {
+		const estructura = eval('estructura_' + this.entidad);
 		const campos = document.forms['IU_form'].elements;
 
 		for (let i = 0; i < campos.length; i++) {
 			const campo = campos[i];
-
 			if (!campo.id) continue;
+
+			// Saltar PK en ADD y EDIT
+			const def = estructura.attributes[campo.id];
+			if ((accion === 'ADD' || accion === 'EDIT') && def && def.is_pk && def.is_autoincrement) {
+				continue;
+			}
 
 			const tag = campo.tagName;
 			const tipo = campo.type;
@@ -487,10 +461,8 @@ class Entidad_Abstracta extends Dom_validations {
 				const nombreNuevo = 'nuevo_' + atributo;
 				const nombreNuevoFuncion = 'comprobar_' + nombreNuevo;
 				if (typeof this[nombreNuevoFuncion] !== 'function') {
-					console.log('1');
 					this[nombreNuevoFuncion] = () => {
-						console.log('2');
-						this.accion= 'ADD'; // Aseguramos que la acción es ADD para este caso
+						this.accion = 'ADD'; // Aseguramos que la acción es ADD para este caso
 						const resultado = Dom_validations.prototype.comprobar_generico.call(this, nombreNuevo, estructura, this.accion);
 						if (resultado !== true) this.mostrar_error_campo(nombreNuevo, resultado);
 						else this.mostrar_exito_campo(nombreNuevo);

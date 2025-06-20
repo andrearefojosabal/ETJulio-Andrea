@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <title>Documentación API</title>
@@ -7,7 +8,65 @@
   <link rel="stylesheet" type="text/css" href="./css/IU.css" media="screen" />
   <script src="./js/idiomas/textos_ES.js"></script>
   <script src="./js/idiomas/textos_EN.js"></script>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 95%;
+      margin: 2rem;
+      background: #f8f8f8;
+      color: #222;
+    }
+
+    h2,
+    h3 {
+      color: #1976d2;
+    }
+
+    pre,
+    code {
+      background: #f0f0f0;
+      padding: 0.2em 0.4em;
+      border-radius: 4px;
+    }
+
+    .class-block {
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px #0001;
+      margin-bottom: 2rem;
+      padding: 2rem;
+    }
+
+    .method-block {
+      margin-bottom: 1.5rem;
+    }
+
+    ul {
+      list-style: none;
+      margin-top: 0.2em;
+    }
+
+    li {
+      list-style: none;
+      margin-bottom: 0.2em;
+    }
+
+    .param-list {
+      margin-left: 1.5em;
+    }
+
+    .type-label {
+      color: #1976d2;
+      font-weight: bold;
+    }
+
+    .section-title {
+      margin-top: 2.5rem;
+    }
+  </style>
 </head>
+
 <body>
 
   <header>
@@ -18,6 +77,950 @@
   </header>
 
   <main id="contenedor_api" class="contenedor-api">
+    <div class="class-block">
+      <h1>🟦 test_IU</h2>
+        <div><span class="type-label">Tipo:</span> <code>Test</code></div>
+        <p>
+          <b>Descripción general:</b><br>
+          La clase <code>test_IU</code> es responsable de gestionar la ejecución y visualización de los tests de
+          validación de formularios en la interfaz de usuario. Permite ejecutar pruebas automáticas sobre los
+          formularios,
+          mostrar los resultados en tablas, y verificar tanto las definiciones de tests como los resultados de pruebas
+          normales y de ficheros. Además, se encarga de mostrar los resultados en un modal de la interfaz.
+        </p>
+        <br>
+        <div class="method-block">
+          <h3>test_run()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Inicializa y muestra el modal de tests, limpia los resultados anteriores y
+              ejecuta la batería de tests y pruebas definidos para la entidad seleccionada. Llama a los métodos de
+              verificación y ejecución de tests y pruebas, y muestra los resultados en la interfaz.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>test_entidad()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Ejecuta todas las pruebas unitarias definidas para la entidad (excepto las
+              de ficheros), rellenando los formularios, ejecutando las validaciones y comparando los resultados con los
+              esperados. Muestra los resultados en una tabla dentro del modal.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>test_entidad_files()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Ejecuta todas las pruebas relacionadas con campos de tipo fichero para la
+              entidad, simulando la carga de archivos y ejecutando las validaciones correspondientes. Muestra los
+              resultados en una tabla dentro del modal.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>devolver_def(num_def)</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <code>num_def: number</code> → Número identificador de la definición de
+              test.</li>
+            <li><b>Valor devuelto:</b> <code>array | undefined</code> → Devuelve la definición de test correspondiente o
+              <code>undefined</code> si no la encuentra.
+            </li>
+            <li><b>Descripción funcional:</b> Busca y devuelve la definición de test asociada a un número de definición,
+              utilizada para mostrar información descriptiva en los resultados de los tests.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>getCookie(name)</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <code>name: string</code> → Nombre de la cookie a buscar.</li>
+            <li><b>Valor devuelto:</b> <code>string | null</code> → Valor de la cookie si existe, o <code>null</code> si
+              no se encuentra.</li>
+            <li><b>Descripción funcional:</b> Recupera el valor de una cookie por su nombre, útil para obtener el idioma
+              seleccionado por el usuario.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>traduccion(codigo)</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <code>codigo: string</code> → Código de texto a traducir.</li>
+            <li><b>Valor devuelto:</b> <code>string</code> → Traducción correspondiente al idioma actual, o el propio
+              código si no existe traducción.</li>
+            <li><b>Descripción funcional:</b> Devuelve la traducción de un texto según el idioma seleccionado en la
+              cookie, usando los diccionarios de textos cargados.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>verificarDefTest()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Verifica el formato de las definiciones de tests, mostrando una tabla con
+              los tipos de cada campo y si la definición es correcta. Muestra el resultado en el modal de tests.</li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>verificarPruebas()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Verifica el formato de las pruebas normales (no de ficheros), mostrando
+              una
+              tabla con los tipos de cada campo y si la prueba es correcta. Muestra el resultado en el modal de tests.
+            </li>
+          </ul>
+        </div>
+        <div class="method-block">
+          <h3>verificarPruebas_file()</h3>
+          <ul>
+            <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+            <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+            <li><b>Descripción funcional:</b> Verifica el formato de las pruebas de tipo fichero, mostrando una tabla
+              con
+              los tipos de cada campo y si la prueba es correcta. Muestra el resultado en el modal de tests.</li>
+          </ul>
+        </div>
+    </div>
+
+    <!-- Repite el mismo patrón para el resto de clases, usando los títulos y descripciones que has dado en tu prompt -->
+
+    <!-- Dom -->
+    <div class="class-block">
+      <h1>🟦 Dom</h1>
+      <div><span class="type-label">Tipo:</span> <code>Manipulación HTML</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>Dom</code> se encarga de gestionar y manipular dinámicamente la interfaz de usuario en la
+        aplicación. Hereda de <code>test_IU</code> y es responsable de crear formularios y tablas, cargar datos en los
+        formularios, mostrar mensajes de error o éxito, gestionar la visualización de columnas, construir selectores, y
+        controlar la apertura/cierre de formularios, tablas, tests y modales de error. Su objetivo es facilitar la
+        interacción del usuario con los datos y la visualización de resultados en la IU.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>createForm()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Crea y muestra el formulario correspondiente a la entidad y acción actual,
+            usando un método HTML específico o uno dinámico. Configura los campos según la acción (ADD, EDIT, DELETE,
+            SHOWCURRENT), deshabilitando los necesarios, y muestra el formulario en pantalla.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cargar_formulario_dinamico()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Construye dinámicamente el formulario HTML para la entidad activa, generando
+            los campos según la estructura definida (inputs, selects, textareas, archivos, etc.) y los añade al DOM.
+          </li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>load_data()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Carga los datos actuales de la entidad en los campos del formulario,
+            formateando fechas si es necesario.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>mostrar_error_campo(id, codigoerror)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <code>id</code>: <code>string</code> → Identificador del campo.<br>
+            <code>codigoerror</code>: <code>string</code> → Código o mensaje de error a mostrar.
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra el mensaje de error correspondiente junto al campo indicado y aplica
+            estilos de error visual al campo.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>mostrar_exito_campo(id)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <code>id</code>: <code>string</code> → Identificador del campo.</li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Oculta el mensaje de error y aplica estilos de éxito visual al campo
+            indicado.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>modificarcolumnasamostrar(atributo)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <code>atributo</code>: <code>string</code> → Nombre del atributo/columna a
+            mostrar u ocultar.</li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Añade o elimina una columna de la lista de columnas visibles y actualiza la
+            tabla para reflejar los cambios.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>mostrarocultarcolumnas()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra u oculta las columnas de la tabla según la configuración actual de
+            columnas a mostrar.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>construirSelect()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Construye el selector de columnas para mostrar/ocultar en la tabla,
+            permitiendo al usuario personalizar la visualización.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createTabla()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Genera y muestra la tabla de datos de la entidad, incluyendo cabecera, filas
+            de datos y botones de acción (EDIT, DELETE, SHOWCURRENT).</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>crearboton(entidad, accion, parametros)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <code>entidad</code>: <code>string</code> → Nombre de la entidad.<br>
+            <code>accion</code>: <code>string</code> → Acción a ejecutar (EDIT, DELETE, SHOWCURRENT).<br>
+            <code>parametros</code>: <code>string</code> → Parámetros en formato JSON para la acción.
+          </li>
+          <li><b>Valor devuelto:</b> <code>string</code> → HTML del botón generado.</li>
+          <li><b>Descripción funcional:</b> Crea el HTML de un botón de acción para la tabla, configurando el evento
+            onclick con los parámetros adecuados.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cerrar_formulario()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Limpia y oculta el formulario de la interfaz, eliminando eventos y
+            contenido.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cerrar_test()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Oculta el modal de tests y limpia todos los resultados y tablas de pruebas.
+          </li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cerrar_tabla()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Limpia y oculta la tabla de datos y el título, y oculta el botón de tests y
+            el modal de tests.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>ocultar_boton_test()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Oculta el botón de ejecución de tests en la interfaz.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>mostrar_boton_test()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra el botón de ejecución de tests en la interfaz.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>abrirModalError(errorMsg)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <code>errorMsg</code>: <code>string</code> → Mensaje de error a mostrar.
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra el modal de error con el mensaje proporcionado y activa el overlay
+            de fondo.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cerrarModalError()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Oculta el modal de error y el overlay de fondo.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Entidad_Abstracta -->
+    <div class="class-block">
+      <h1>🟦 Entidad_Abstracta</h1>
+      <div><span class="type-label">Tipo:</span> <code>Manipulación HTML</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>Entidad_Abstracta</code> es una clase base para la gestión de entidades en la interfaz de
+        usuario. Hereda de <code>Dom_validations</code> y centraliza la lógica para inicializar, mostrar, crear y
+        validar formularios y tablas de datos, así como para gestionar las acciones CRUD (Create, Read, Update, Delete)
+        y la configuración dinámica de los campos y columnas de la entidad.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>change_value_IU()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Método de placeholder sin codificar pero que se invoca siempre y por lo
+            tanto, que permite que se refactorice dicho método.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>inicializar()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>Promise&lt;void&gt;</code> → Promesa que se resuelve cuando la inicialización
+            termina.</li>
+          <li><b>Descripción funcional:</b> Inicializa la entidad cargando los datos desde el backend, configura
+            atributos y columnas a mostrar, y construye la tabla de datos en la interfaz.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>crearTablaDatos()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra y construye la tabla de datos de la entidad, así como el selector de
+            columnas, y ajusta la visibilidad de columnas según la configuración.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>showTabla()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Muestra la tabla de datos en la interfaz, asegurando que el contenedor
+            correspondiente sea visible.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cargar_formulario()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Carga el formulario de la entidad, usando una función HTML específica o una
+            función dinámica, según esté definida.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cambiacolumnastabla(atributo)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>atributo</code>: <code>string</code> → Nombre de la columna a ocultar.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Oculta la columna de la tabla correspondiente al atributo indicado.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createForm_ADD()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Prepara y muestra el formulario para añadir una nueva entidad,
+            deshabilitando los campos PK y ocultando los campos de fichero originales, y configura las validaciones y el
+            botón de acción.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createForm_EDIT(datos)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>datos</code>: <code>object</code> → Objeto con los datos de la entidad a editar.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Prepara y muestra el formulario para editar una entidad, cargando los datos,
+            deshabilitando los campos PK y gestionando los campos de fichero, y configura las validaciones y el botón de
+            acción.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createForm_SEARCH()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Prepara y muestra el formulario de búsqueda, habilitando todos los campos y
+            adaptando los campos de fichero para búsqueda, y configura las validaciones y el botón de acción.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createForm_DELETE(datos)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>datos</code>: <code>object</code> → Objeto con los datos de la entidad a eliminar.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Prepara y muestra el formulario para eliminar una entidad, deshabilitando
+            todos los campos y gestionando los campos de fichero, y configura el botón de acción.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>createForm_SHOWCURRENT(datos)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>datos</code>: <code>object</code> → Objeto con los datos de la entidad a mostrar.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Prepara y muestra el formulario para visualizar los datos de una entidad,
+            deshabilitando todos los campos y gestionando los campos de fichero.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>aplicarConfiguracionCampos(accion)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>accion</code>: <code>string</code> → Acción actual (ADD, EDIT, SEARCH, DELETE, SHOWCURRENT).
+              </li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Configura los campos del formulario según la acción, gestionando la
+            visibilidad, habilitación y tipo de los campos, especialmente los de tipo fichero.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cambiardatosespecialestabla(atributo, valoratributo)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>atributo</code>: <code>string</code> → Nombre del atributo.</li>
+              <li><code>valoratributo</code>: <code>any</code> → Valor del atributo.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>string</code> → Valor formateado para mostrar en la tabla.</li>
+          <li><b>Descripción funcional:</b> Devuelve una representación especial para los atributos de tipo fichero (con
+            enlace e icono) o para fechas, formateando el valor para su visualización en la tabla.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>SEARCH()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>Promise&lt;void&gt;</code> → Promesa que se resuelve al finalizar la
+            búsqueda.</li>
+          <li><b>Descripción funcional:</b> Realiza una búsqueda de entidades en el backend usando los criterios del
+            formulario, actualiza los datos y la tabla en la interfaz.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>ADD()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>Promise&lt;void&gt;</code> → Promesa que se resuelve al finalizar la
+            operación.</li>
+          <li><b>Descripción funcional:</b> Envía una petición para añadir una nueva entidad, actualiza la interfaz y
+            muestra errores si los hay.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>DELETE()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>Promise&lt;void&gt;</code> → Promesa que se resuelve al finalizar la
+            operación.</li>
+          <li><b>Descripción funcional:</b> Envía una petición para eliminar una entidad, actualiza la interfaz y
+            muestra errores si los hay.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>EDIT()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>Promise&lt;void&gt;</code> → Promesa que se resuelve al finalizar la
+            operación.</li>
+          <li><b>Descripción funcional:</b> Envía una petición para editar una entidad, actualiza la interfaz y muestra
+            errores si los hay.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>colocarvalidaciones(accion)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>accion</code>: <code>string</code> → Acción actual (ADD, EDIT, SEARCH, etc.).</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Asigna los eventos de validación a los campos del formulario según la
+            acción, para que se validen al interactuar con ellos.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>colocarboton(accion)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>accion</code>: <code>string</code> → Acción actual (ADD, EDIT, SEARCH, etc.).</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Añade el botón de acción correspondiente al formulario, con el icono y tipo
+            adecuados.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>ponernoactivoform()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Establece todos los campos del formulario como solo lectura.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>crear_metodos_comprobar()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Genera dinámicamente los métodos de comprobación de validación para cada
+            campo del formulario, incluyendo los campos de tipo fichero.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>comprobar_submit()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → Indica si el formulario pasa todas las validaciones.</li>
+          <li><b>Descripción funcional:</b> Ejecuta la validación de todos los campos del formulario antes de enviar la
+            acción principal.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>comprobar_submit_SEARCH()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → Indica si el formulario de búsqueda pasa todas las
+            validaciones.</li>
+          <li><b>Descripción funcional:</b> Ejecuta la validación de todos los campos del formulario de búsqueda antes
+            de enviar la acción SEARCH.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- analysis_preparation -->
+    <div class="class-block">
+      <h1>🟦 analysis_preparation</h1>
+      <div><span class="type-label">Tipo:</span> <code>Manipulación HTML</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>analysis_preparation</code> gestiona la interfaz y la lógica asociada a la entidad
+        "analysis_preparation" en la aplicación. Se encarga de inicializar la entidad, crear y mostrar los formularios
+        HTML específicos para las distintas acciones (ADD, EDIT, SEARCH, DELETE, SHOWCURRENT), y de gestionar la
+        interacción del usuario con los datos de esta entidad.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>constructor()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>analysis_preparation</code> → Instancia de la clase.</li>
+          <li><b>Descripción funcional:</b> Inicializa la entidad "analysis_preparation", configurando sus propiedades,
+            eventos y cualquier lógica necesaria para su funcionamiento en la interfaz. Suele invocar la inicialización
+            de la clase base y preparar la entidad para su uso.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cargar_formulario_html()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Genera y muestra el formulario HTML específico para la entidad
+            "analysis_preparation" según la acción seleccionada (ADD, EDIT, etc.). Se encarga de construir los campos,
+            etiquetas y botones necesarios, y de insertarlos en el DOM para su visualización y uso por el usuario.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- characteristic -->
+    <div class="class-block">
+      <h1>🟦 characteristic</h1>
+      <div><span class="type-label">Tipo:</span> <code>Manipulación HTML</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>characteristic</code> gestiona la interfaz y la lógica asociada a la entidad "characteristic" en
+        la aplicación. Hereda de <code>Entidad_Abstracta</code> y se encarga de inicializar la entidad, crear y mostrar
+        el formulario HTML específico para las distintas acciones (ADD, EDIT, SEARCH, DELETE, SHOWCURRENT), y de
+        gestionar la interacción del usuario con los datos de esta entidad, incluyendo campos de texto, selectores y
+        ficheros.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>constructor()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>characteristic</code> → Instancia de la clase.</li>
+          <li><b>Descripción funcional:</b> Inicializa la entidad "characteristic", establece el nombre de la entidad,
+            llama al constructor de la clase base y ejecuta la inicialización para cargar datos y preparar la interfaz.
+          </li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cargar_formulario_html()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Genera y muestra el formulario HTML específico para la entidad
+            "characteristic", incluyendo campos de texto, selectores y campos de fichero. Inserta el formulario en el
+            DOM y aplica la traducción de etiquetas según el idioma seleccionado.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- project -->
+    <div class="class-block">
+      <h1>🟦 project</h1>
+      <div><span class="type-label">Tipo:</span> <code>Validación</code> y <code>Manipulación HTML</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>project</code> gestiona la interfaz y la lógica asociada a la entidad "project" en la aplicación.
+        Hereda de <code>Entidad_Abstracta</code> y se encarga de inicializar la entidad, crear y mostrar el formulario
+        HTML específico para las distintas acciones (ADD, EDIT, SEARCH, DELETE, SHOWCURRENT), gestionar la interacción
+        del usuario con los datos de esta entidad, y realizar validaciones especiales sobre las fechas de inicio y fin
+        del proyecto.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>constructor()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>project</code> → Instancia de la clase.</li>
+          <li><b>Descripción funcional:</b> Inicializa la entidad "project", establece el nombre de la entidad, llama al
+            constructor de la clase base y ejecuta la inicialización para cargar datos y preparar la interfaz.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>cargar_formulario_html()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Genera y muestra el formulario HTML específico para la entidad "project",
+            incluyendo todos los campos y controles necesarios (inputs, labels, campos de fichero, enlaces, etc.).
+            Inserta el formulario en el DOM y aplica la traducción de etiquetas según el idioma seleccionado.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>check_special_end_date_project(start_date_project)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>start_date_project</code>: <code>string</code> → Fecha de inicio del proyecto (no se usa
+                directamente, pero se espera para compatibilidad).</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>string | true</code> → Devuelve un código de error si la fecha de fin es
+            anterior a la de inicio, o <code>true</code> si la validación es correcta.</li>
+          <li><b>Descripción funcional:</b> Valida que la fecha de fin del proyecto no sea anterior a la fecha de
+            inicio. Si la validación falla, devuelve un código de error específico; si es correcta, devuelve
+            <code>true</code>. Se utiliza en la validación de formularios antes de enviar los datos.
+          </li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>check_special_start_date_project(end_date_project)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>end_date_project</code>: <code>string</code> → Fecha de fin del proyecto (no se usa
+                directamente, pero se espera para compatibilidad).</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>string | true</code> → Devuelve un código de error si la fecha de inicio es
+            posterior a la de fin, o <code>true</code> si la validación es correcta.</li>
+          <li><b>Descripción funcional:</b> Valida que la fecha de inicio del proyecto no sea posterior a la fecha de
+            fin. Si la validación falla, devuelve un código de error específico; si es correcta, devuelve
+            <code>true</code>. Se utiliza en la validación de formularios antes de enviar los datos.
+          </li>
+      </div>
+    </div>
+    <!-- Dom_validations -->
+    <div class="class-block">
+      <h1>🟦 Dom_validations</h1>
+      <div><span class="type-label">Tipo:</span> <code>Validación</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>Dom_validations</code> extiende la clase <code>Dom</code> y centraliza la lógica de validación
+        de
+        formularios en la interfaz de usuario. Permite validar campos de formularios de manera genérica y específica,
+        aplicar reglas de validación definidas en la estructura de cada entidad, gestionar la visualización de errores
+        y
+        éxitos, y controlar el envío de formularios solo si las validaciones se cumplen. También permite ejecutar
+        validaciones personalizadas y validaciones especiales para ciertos campos.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>comprobar_generico(campo, estructura, accion)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>campo</code>: <code>string</code> → Nombre o identificador del campo a validar.</li>
+              <li><code>estructura</code>: <code>object</code> → Estructura de la entidad con las reglas de
+                validación.</li>
+              <li><code>accion</code>: <code>string</code> → Acción actual (ADD, EDIT, SEARCH, etc.) para seleccionar
+                las reglas correspondientes.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>true | string</code> → Devuelve <code>true</code> si la validación es
+            correcta, o un mensaje/código de error si falla alguna regla.</li>
+          <li><b>Descripción funcional:</b> Valida un campo concreto aplicando todas las reglas definidas para la
+            acción indicada. Soporta validaciones estándar (tamaño, formato, tipo de archivo, etc.) y personalizadas.
+            Devuelve el primer error encontrado o <code>true</code> si todo es correcto.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>load_validations()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si todas las validaciones pasan,
+            <code>false</code> si alguna falla.
+          </li>
+          <li><b>Descripción funcional:</b> Ejecuta la validación de todos los campos del formulario según la
+            estructura y la acción actual. Muestra los errores o éxitos en la interfaz y ejecuta validaciones
+            especiales si existen. Devuelve si el formulario es válido en su conjunto.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>submit_test()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Envía el formulario al backend solo si todas las validaciones pasan.
+            Muestra mensajes de éxito o error según la respuesta del backend. Si las validaciones fallan, no envía el
+            formulario y muestra advertencias en consola.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>check_special_tests()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>void</code> → No devuelve valor.</li>
+          <li><b>Descripción funcional:</b> Ejecuta métodos de validación especiales definidos en la clase de la
+            entidad para campos concretos, si existen. Se usa para validaciones adicionales que no están cubiertas por
+            las reglas estándar.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>comprobar_submit()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si todas las validaciones de los campos
+            pasan, <code>false</code> si alguna falla.</li>
+          <li><b>Descripción funcional:</b> Ejecuta la validación de todos los campos del formulario antes de enviar
+            la acción principal (ADD, EDIT, DELETE, etc.), incluyendo validaciones especiales. Devuelve si el
+            formulario es válido.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>comprobar_submit_SEARCH()</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b> <i>ninguno</i></li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si todas las validaciones de los campos
+            de búsqueda pasan, <code>false</code> si alguna falla.</li>
+          <li><b>Descripción funcional:</b> Ejecuta la validación de todos los campos del formulario de búsqueda antes
+            de enviar la acción SEARCH, incluyendo validaciones especiales. Devuelve si el formulario de búsqueda es
+            válido.</li>
+      </div>
+    </div>
+    <!-- Validaciones_class.js -->
+    <div class="class-block">
+      <h1>🟦 Validaciones_class.js</h1>
+      <div><span class="type-label">Tipo:</span> <code>Validación</code></div>
+      <p>
+        <b>Descripción general:</b><br>
+        La clase <code>Validaciones_Atomicas</code> centraliza las validaciones atómicas y reutilizables para
+        formularios en la interfaz de usuario. Proporciona métodos para validar el tamaño mínimo y máximo de campos,
+        el
+        formato mediante expresiones regulares, y validaciones específicas para archivos como tamaño, tipo y nombre.
+        Es
+        utilizada por otras clases para comprobar que los datos introducidos por el usuario cumplen los requisitos
+        definidos.
+      </p>
+      <br>
+      <div class="method-block">
+        <h3>min_size(id, minsize)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>id</code>: <code>string</code> → Identificador del campo a validar.</li>
+              <li><code>minsize</code>: <code>number</code> → Tamaño mínimo permitido.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el valor cumple el tamaño mínimo,
+            <code>false</code> en caso contrario.
+          </li>
+          <li><b>Descripción funcional:</b> Comprueba que el valor del campo (texto o nombre de archivo) tiene al
+            menos el número de caracteres indicado por <code>minsize</code>. Se usa para validar campos de texto,
+            email, number y file.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>max_size(id, maxsize)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>id</code>: <code>string</code> → Identificador del campo a validar.</li>
+              <li><code>maxsize</code>: <code>number</code> → Tamaño máximo permitido.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el valor no supera el tamaño
+            máximo, <code>false</code> en caso contrario.</li>
+          <li><b>Descripción funcional:</b> Comprueba que el valor del campo (texto o nombre de archivo) no supera
+            el número de caracteres indicado por <code>maxsize</code>. Se usa para validar campos de texto, email,
+            number y file.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>format(id, exprreg)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>id</code>: <code>string</code> → Identificador del campo a validar.</li>
+              <li><code>exprreg</code>: <code>string</code> → Expresión regular a aplicar.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el valor cumple el formato,
+            <code>false</code> en caso contrario.
+          </li>
+          <li><b>Descripción funcional:</b> Valida que el valor del campo cumple la expresión regular proporcionada.
+            Se usa para comprobar formatos de texto, emails, etc.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>max_size_file(objfile, maxsize)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>objfile</code>: <code>File</code> → Objeto de archivo a validar.</li>
+              <li><code>maxsize</code>: <code>number</code> → Tamaño máximo permitido en bytes.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el archivo no supera el tamaño
+            máximo, <code>false</code> en caso contrario.</li>
+          <li><b>Descripción funcional:</b> Comprueba que el tamaño del archivo no supera el límite especificado. Se
+            usa en validaciones de campos de tipo file.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>no_file(objfile)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>objfile</code>: <code>FileList</code> → Lista de archivos seleccionados.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si hay al menos un archivo
+            seleccionado, <code>false</code> si no hay ninguno.</li>
+          <li><b>Descripción funcional:</b> Valida que el usuario haya seleccionado al menos un archivo en el campo
+            correspondiente.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>file_type(objfile, array_tipos)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>objfile</code>: <code>File</code> → Objeto de archivo a validar.</li>
+              <li><code>array_tipos</code>: <code>string[]</code> → Array de tipos MIME permitidos.</li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el tipo del archivo está permitido,
+            <code>false</code> en caso contrario.
+          </li>
+          <li><b>Descripción funcional:</b> Comprueba que el tipo MIME del archivo está incluido en la lista de
+            tipos permitidos.</li>
+        </ul>
+      </div>
+
+      <div class="method-block">
+        <h3>format_name_file(objfile, exprreg)</h3>
+        <ul>
+          <li><b>Parámetros de entrada:</b>
+            <ul>
+              <li><code>objfile</code>: <code>File</code> → Objeto de archivo a validar.</li>
+              <li><code>exprreg</code>: <code>string</code> → Expresión regular para validar el nombre del archivo.
+              </li>
+            </ul>
+          </li>
+          <li><b>Valor devuelto:</b> <code>boolean</code> → <code>true</code> si el nombre del archivo cumple el
+            formato, <code>false</code> en caso contrario.</li>
+          <li><b>Descripción funcional:</b> Valida que el nombre del archivo cumple la expresión regular
+            proporcionada. Se usa para restringir nombres de archivo a ciertos
+      </div>
   </main>
 
   <footer>
@@ -25,4 +1028,5 @@
   </footer>
 
 </body>
+
 </html>

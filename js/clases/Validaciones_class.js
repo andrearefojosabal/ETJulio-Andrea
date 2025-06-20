@@ -42,14 +42,15 @@ class Validaciones_Atomicas {
 
 	}
 
-	max_size(id, maxsize) {
+	max_size(id, maxsize) {	
 		let elemento = document.getElementById(id);
-		switch (elemento.tagName) {
+		switch (elemento) {
 			case 'INPUT':
 				switch (elemento.type) {
 					case 'number':
 					case 'email':
 					case 'text':
+						console.log('max_size text');
 						var valorelemento = elemento.value;
 						if (valorelemento.length > maxsize) {
 							return false;
@@ -77,7 +78,6 @@ class Validaciones_Atomicas {
 			default:
 				break;
 		}
-
 	}
 
 	format(id, exprreg) {
@@ -86,37 +86,40 @@ class Validaciones_Atomicas {
 		return expresionregular.test(valor);
 	}
 
-	max_size_file(objfile, maxsize) {
-		
-		console.log('max_size_file');
-		if (objfile.size > maxsize) {
-			return false;
+	no_file(id){
+		if (document.getElementById(atributo).files.length != 0){
+			return true;
 		}
-		return true;
+		return false;
 	}
 
-	no_file(objfile) {
-		console.log('no_file');
-		return objfile.length > 0;
+	max_size_file(id, maxsize) {
+		if (document.getElementById(id).files[0].size < maxsize) {
+			return true;
+		}
+		return false;
 	}
-
-	file_type(objfile, array_tipos) {
-		
-		console.log('file_type');
-		if (!(array_tipos.includes(objfile.type))) {
+	/*
+		file_type(id, array_tipos) {
+			return array_tipos.includes(document.getElementById(id).files[0].type);
+		}*/
+	file_type(id, array_tipos) {
+		const elemento = document.getElementById(id);
+		if (!elemento || !elemento.files || !elemento.files[0]) {
 			return false;
 		}
-		return true;
+		return array_tipos.includes(elemento.files[0].type);
 	}
 
-	format_name_file(objfile, exprreg) {
-		if (!objfile || typeof objfile.name !== 'string') {
+	format_name_file(id, exprreg) {
+		const elemento = document.getElementById(id);
+		//Igual el if lo puedo quitar, pero lo dejo por si acaso
+		if (!elemento || !elemento.files || !elemento.files[0]) {
 			return false;
 		}
-		let expresionregular = new RegExp(exprreg);
-		let valor = objfile.name;
-		console.log('format_name_file');
-		return expresionregular.test(valor);
+		const nombreArchivo = elemento.files[0].name;
+		const expresionregular = new RegExp(exprreg);
+		return expresionregular.test(nombreArchivo);
 	}
 
 }

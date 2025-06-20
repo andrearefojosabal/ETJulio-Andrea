@@ -42,7 +42,7 @@ class test_IU {
 
         for (let i = 0; i < this.array_pruebas.length; i++) {
             // Cargar formulario limpio
-            this.cargar_formulario_html();
+            this.cargar_formulario();
             validar.crear_metodos_comprobar();
 
             // Añadir botón submit para evitar errores de validación
@@ -123,16 +123,16 @@ class test_IU {
         <th>Respuesta esperada</th>
         <th>Resultado</th>
     </tr>`;
-
+        let flag = true;
         for (let i = 0; i < this.array_pruebas_file.length; i++) {
             // Cargar formulario limpio
-            this.cargar_formulario_html();
-            validar.crear_metodos_comprobar();
+
+            // validar.crear_metodos_comprobar();
 
             // Añadir botón submit para evitar errores de validación
-            let botonsumit = document.createElement('input');
-            botonsumit.id = 'submit_button';
-            document.getElementById('IU_form').appendChild(botonsumit);
+            // let botonsumit = document.createElement('input');
+            // botonsumit.id = 'submit_button';
+            //  document.getElementById('IU_form').appendChild(botonsumit);
 
             // Extraer datos de la prueba según la estructura correcta
             let entidad = this.array_pruebas_file[i][0];
@@ -144,10 +144,45 @@ class test_IU {
             let valortest = this.array_pruebas_file[i][6];
             let respuestaesperada = this.array_pruebas_file[i][7];
 
-            // Recuperar definición de la prueba
-            let def = this.devolver_def(numdeftest);
+            this.cargar_formulario_html();
 
-            // Simular la carga del fichero en el input correspondiente si corresponde
+            if (valortest.length != 0) {
+                var file = new File([new ArrayBuffer(valortest[2])], valortest[0], { type: valortest[1], webkitRelativePath: "C:\\fakepath\\" + valortest[0] });
+                // Create a data transfer object. Similar to what you get from a `drop` event as `event.dataTransfer`
+                const dataTransfer = new DataTransfer();
+                // Add your file to the file list of the object
+                dataTransfer.items.add(file);
+                // Save the file list to a new variable
+                const fileList = dataTransfer.files;
+                // Set your input `files` to the file list
+                document.getElementById(campotest).files = fileList;
+            }
+
+            let resultadotest;
+            if (acciontest === 'SEARCH') {
+                resultadotest = eval('this.comprobar_' + campotest + '_SEARCH()');
+            } else {
+                if (campotest.startsWith('nuevo_file_')) {
+                    resultadotest = eval('this.comprobar_' + campotest + '()');
+                } else {
+                    resultadotest = eval('this.comprobar_' + 'nuevo_' + campotest + '()');
+                }
+            }
+
+            let resultadoestetest = (respuestaesperada == resultadotest) ? 'CORRECTO' : 'INCORRECTO';
+
+
+
+
+
+
+
+
+
+            // Recuperar definición de la prueba
+          //  let def = this.devolver_def(numdeftest);
+
+            /* Simular la carga del fichero en el input correspondiente si corresponde
             const nombreInput = 'nuevo_' + campotest;
             const inputFile = document.getElementById(nombreInput);
 
@@ -164,22 +199,26 @@ class test_IU {
                     // Si no hay fichero, asegúrate de que el input está vacío
                     inputFile.value = '';
                 }
-            }
+            }*/
 
             // Ejecutar la función de validación correspondiente
-            let resultadotest;
+            /* let resultadotest;
             try {
                 if (acciontest === 'SEARCH') {
                     resultadotest = eval('this.comprobar_' + campotest + '_SEARCH()');
                 } else {
-                    resultadotest = eval('this.comprobar_' + campotest + '()');
+                    if (campotest.startsWith('nuevo_file_')) {
+                        resultadotest = eval('this.comprobar_' + campotest + '()');
+                    } else {
+                        resultadotest = eval('this.comprobar_' + 'nuevo_' + campotest + '()');
+                    }
                 }
             } catch (e) {
                 resultadotest = 'ERROR_NO_FUNCION';
-            }
+            }*/
 
             // Comparar resultado con el esperado
-            let resultadoestetest = (respuestaesperada == resultadotest) ? 'CORRECTO' : 'INCORRECTO';
+           // let resultadoestetest = (respuestaesperada == resultadotest) ? 'CORRECTO' : 'INCORRECTO';
 
             // Construir la fila de salida
             let lineasalida = `<tr>

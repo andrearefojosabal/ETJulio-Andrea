@@ -7,49 +7,43 @@ class Dom extends test_IU {
     }
 
     createForm() {
-        //Pone el título al formulario
-        document.getElementById('class_contenido_titulo_form').className = 'text_contenido_titulo_form_' + this.entidad + '_' + this.accion;
-        if (typeof this.cargar_formulario_html === 'function') { //si existe la función cargar_formulario_html en la clase entidad
-            this.cargar_formulario_html();
-        } else {
-            this.cargar_formulario_dinamico();
-        }
 
-        //Método que el profesor nos manda invocar SIEMPRE, pero que no hace nada
+        document.getElementById('class_contenido_titulo_form').className = 'text_contenido_titulo_form_' + this.entidad + '_' + this.accion;
+
+        this.cargar_formulario();
+
         this.change_value_IU();
 
         const estructura = eval('estructura_' + this.entidad);
 
-        //Esta función se ejecura correctamente, NO TOCAR
-        requestAnimationFrame(function () {
+        for (let atributo of estructura.attributes_list) {
+            const def = estructura.attributes[atributo];
 
-            for (let atributo of estructura.attributes_list) {
-                const def = estructura.attributes[atributo];
+            const campos = [
+                document.getElementById(atributo),
+                document.getElementById('nuevo_' + atributo),
+                ...Array.from(document.getElementsByName(atributo))
+            ].filter(Boolean);
 
-                const campos = [
-                    document.getElementById(atributo),
-                    document.getElementById('nuevo_' + atributo),
-                    ...Array.from(document.getElementsByName(atributo))
-                ].filter(Boolean);
+            if (campos.length === 0 || !def) continue;
 
-                if (campos.length === 0 || !def) continue;
-
-                if (self.accion === 'DELETE' || self.accion === 'SHOWCURRENT') {
-                    campos.forEach(campo => {
-                        campo.disabled = true;
-                    });
-                    continue;
-                }
-
-                if ((self.accion === 'ADD' || self.accion === 'EDIT') && def.is_pk) {
-                    campos.forEach(campo => {
-                        campo.disabled = true;
-                    });
-                    continue;
-                }
-
+            if (self.accion === 'DELETE' || self.accion === 'SHOWCURRENT') {
+                campos.forEach(campo => {
+                    campo.disabled = true;
+                    campo.setAttribute('readonly', true);
+                });
+                continue;
             }
-        });
+
+            if ((self.accion === 'ADD' || self.accion === 'EDIT') && def.is_pk) {
+                campos.forEach(campo => {
+                    campo.disabled = true;
+                    campo.setAttribute('readonly', true);
+                });
+                continue;
+            }
+
+        }
 
         document.getElementById("div_IU_form").style.display = 'block';
         setLang();
@@ -59,19 +53,24 @@ class Dom extends test_IU {
         const estructura = eval('estructura_' + this.entidad);
         const form = document.getElementById("IU_form");
         form.innerHTML = '';
+        form.setAttribute('enctype', 'multipart/form-data'); // <-- Añade esto
+
 
         for (let atributo of estructura.attributes_list) {
+            const def = estructura.attributes[atributo];
+            console.log(def);
+            if ((this.accion === 'ADD' || this.accion === 'EDIT') && def.is_pk && def.is_autoincrement) {
+                continue;
+            }
             if (!estructura.attributes.hasOwnProperty(atributo)) continue;
 
-            const def = estructura.attributes[atributo];
             const label = document.createElement('label');
             label.className = 'label_' + atributo;
             label.setAttribute('for', atributo);
-            label.innerHTML = atributo; // Puedes traducir si lo deseas
+            label.innerHTML = atributo;
 
             let input;
 
-            // Si el campo es un textarea
             if (def.html && def.html.tag === 'textarea') {
                 input = document.createElement('textarea');
                 input.id = atributo;
@@ -79,17 +78,14 @@ class Dom extends test_IU {
                 if (def.html.rows) input.rows = def.html.rows;
                 if (def.html.columns) input.cols = def.html.columns;
             }
-            // Si el campo es un select
             else if (def.html && def.html.tag === 'select' && Array.isArray(def.html.options)) {
                 input = document.createElement('select');
                 input.id = atributo;
                 input.name = atributo;
-                // Añadir opción vacía por defecto
                 const emptyOption = document.createElement('option');
                 emptyOption.value = '';
                 emptyOption.textContent = 'Selecciona una opción';
                 input.appendChild(emptyOption);
-                // Añadir opciones definidas en la estructura
                 for (const opt of def.html.options) {
                     const option = document.createElement('option');
                     if (typeof opt === 'object') {
@@ -102,7 +98,6 @@ class Dom extends test_IU {
                     input.appendChild(option);
                 }
             }
-            // Si el campo es de tipo file
             else if (def.html && def.html.type === 'file' && this.accion !== 'SEARCH') {
                 input = document.createElement('input');
                 input.type = 'file';
@@ -120,6 +115,7 @@ class Dom extends test_IU {
                 };
 
                 const fileNameSpan = document.createElement('span');
+                fileNameSpan.id = atributo + '_filename';
                 fileNameSpan.style.marginLeft = '10px';
 
                 input.onchange = function () {
@@ -134,9 +130,17 @@ class Dom extends test_IU {
                 fileWrapper.appendChild(input);
                 fileWrapper.appendChild(fileNameSpan);
 
+                // Crear div de error para el campo file
+                const divError = document.createElement('div');
+                divError.id = 'div_error_' + atributo;
+                divError.style.display = 'none';
+                divError.className = 'errorcampo';
+
                 form.appendChild(label);
                 form.appendChild(document.createElement('br'));
                 form.appendChild(fileWrapper);
+                form.appendChild(document.createElement('br'));
+                form.appendChild(divError);
                 form.appendChild(document.createElement('br'));
                 continue;
             }
@@ -148,9 +152,17 @@ class Dom extends test_IU {
                 input.type = (def.html && def.html.type) ? def.html.type : 'text';
             }
 
+            // Crear div de error para el campo
+            const divError = document.createElement('div');
+            divError.id = 'div_error_' + atributo;
+            divError.style.display = 'none';
+            divError.className = 'errorcampo';
+
             form.appendChild(label);
             form.appendChild(document.createElement('br'));
             form.appendChild(input);
+            form.appendChild(document.createElement('br'));
+            form.appendChild(divError);
             form.appendChild(document.createElement('br'));
         }
     }
@@ -159,54 +171,61 @@ class Dom extends test_IU {
         for (let clave in this.datos) {
             const elemento = document.getElementById(clave);
             if (elemento) {
+                // Si es un campo de fecha
                 if (typeof this.datos[clave] === 'string' && this.datos[clave].match(/^\d{4}[-/]\d{2}[-/]\d{2}$/)) {
                     const [y, m, d] = this.datos[clave].split(/[-/]/);
                     elemento.value = `${d}/${m}/${y}`;
-                } else {
+                }
+                else if (elemento.type === 'file') {
+                    let fileNameSpan = document.getElementById(clave + '_filename');
+                    if (!fileNameSpan) {
+                        fileNameSpan = document.createElement('span');
+                        fileNameSpan.id = clave + '_filename';
+                        fileNameSpan.style.marginLeft = '10px';
+                        elemento.parentNode.insertBefore(fileNameSpan, elemento.nextSibling);
+                    }
+                    if (this.datos[clave]) {
+                        fileNameSpan.textContent = this.datos[clave];
+                    } else {
+                        fileNameSpan.textContent = '';
+                    }
+                }
+                else {
                     elemento.value = this.datos[clave];
                 }
             }
         }
+
     }
-
+    /*
     mostrar_error_campo(id, codigoerror) {
-        const errorDiv = document.getElementById('div_error_' + id);
-        const campo = document.getElementById(id);
-
-        if (errorDiv) {
-            errorDiv.style.display = 'inline';
-            errorDiv.innerHTML = codigoerror;
-            errorDiv.className = codigoerror;
+        document.getElementById('div_error_' + id).style.display = 'inline';
+        document.getElementById('div_error_' + id).innerHTML = codigoerror;
+        document.getElementById('div_error_' + id).className = codigoerror;
+        document.getElementById(id).className = 'errorcampo';
+        document.getElementById('submit_button');
+        document.getElementById('submit_button').focus();
+        setLang();
+    }*/
+    mostrar_error_campo(id, codigoerror) {
+        document.getElementById('div_error_' + id).style.display = 'inline';
+        document.getElementById('div_error_' + id).innerHTML = codigoerror;
+        document.getElementById('div_error_' + id).className = codigoerror;
+        document.getElementById(id).className = 'errorcampo';
+        const submitBtn = document.getElementById('submit_button');
+        if (submitBtn) {
+            submitBtn.focus();
         }
-
-        if (campo) {
-            campo.className = 'errorcampo';
-        }
-
-        const boton = document.getElementById('submit_button');
-        if (boton) boton.focus();
-
         setLang();
     }
 
-
     mostrar_exito_campo(id) {
-        const errorDiv = document.getElementById('div_error_' + id);
-        const campo = document.getElementById(id);
-
-        if (errorDiv) {
-            errorDiv.style.display = 'none';
-            errorDiv.innerHTML = '';
-        }
-
-        if (campo) {
-            campo.className = 'exitocampo';
-        }
+        document.getElementById('div_error_' + id).style.display = 'none';
+        document.getElementById('div_error_' + id).innerHTML = '';
+        document.getElementById(id).className = 'exitocampo';
     }
 
-
     modificarcolumnasamostrar(atributo) {
-
         let nuevascolumnas = Array();
         if (this.columnasamostrar.includes(atributo)) {
             for (let i = 0; i < this.columnasamostrar.length; i++) {
@@ -220,12 +239,10 @@ class Dom extends test_IU {
         else {
             this.columnasamostrar.push(atributo);
         }
-
         this.createTabla();
     }
 
     mostrarocultarcolumnas() {
-
         for (let columna of this.atributos) {
             if (this.columnasamostrar.includes(columna)) { }
             else {
@@ -236,13 +253,10 @@ class Dom extends test_IU {
                 }
             }
         }
-
     }
 
     construirSelect() {
-
         document.getElementById("seleccioncolumnas").innerHTML = '';
-
         let optionselect = '';
         for (let atributo of this.atributos) {
             optionselect = document.createElement('option');
@@ -257,7 +271,7 @@ class Dom extends test_IU {
         setLang();
     }
 
-    createTabla() {
+    createTabla() { //Antiguo método hacertabla()
 
         document.getElementById("text_title_page").className = "text_titulo_page_" + this.entidad;
         document.getElementById('title_page').style.display = 'block';

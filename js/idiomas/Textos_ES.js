@@ -1,7 +1,7 @@
 let textos_ES = {
 
 	// textos titulos y generales
-	'text_titulo_app': 'Interfaz ET2 IU',
+	'text_titulo_app': 'Interfaz ET Julio IU',
 	'text_titulo_menu': 'Opciones de Menú',
 	'text_titulo_pie': 'Pie de página',
 
@@ -31,6 +31,7 @@ let textos_ES = {
 	'acronym_project_es_nulo_KO': 'El acrónimo no ha llegado correctamente',
 	'id_sampling_methodology_es_nulo_KO': 'El id de la metodología no ha llegado correctamente',
 	'link_file_project_es_nulo_KO': 'El link del archivo no ha llegado correctamente',
+	'ERROR_UPLOAD_file_project_KO': 'El fichero no se ha podido enviar',
 
 	'id_characteristic_es_nulo_KO': 'El id no ha llegado correctamente',
 	'name_characteristic_es_nulo_KO': 'El nombre no ha llegado correctamente',
@@ -146,11 +147,12 @@ let textos_ES = {
 	// start_date_project
 	'start_date_project_format_KO': 'ERROR - La fecha introducida debe tener formato dd/mm/aaaa',
 	'start_date_project_valid_KO': 'ERROR - La fecha introducida no es válida',
+	'start_date_project_after_end_KO': 'ERROR - La fecha de inicio de proyecto debe ser anterior a la fecha de fin',
 
 	// end_date_project
 	'end_date_project_format_KO': 'ERROR - La fecha introducida debe tener formato dd/mm/aaaa',
 	'end_date_project_valid_KO': 'ERROR - La fecha introducida no es válida',
-	'end_date_project_before_start_date_project_KO': 'ERROR - La fecha de fin de proyecto debe ser posterior a la fecha de inicio',
+	'end_date_project_before_start_KO': 'ERROR - La fecha de fin de proyecto debe ser posterior a la fecha de inicio',
 
 	// responsable_project	
 	'responsable_project_min_size_KO': 'ERROR - El tamaño del responsable debe ser de mínimo 6 caracteres',
@@ -245,6 +247,10 @@ let textos_ES = {
 	'bibref_characteristic_max_size_KO': 'ERROR - El bibref debe ser igual o menor a 200 caracteres',
 
 	//file_characteristic
+	'nuevo_file_characteristic_format_name_file_KO': 'ERROR - El fichero solo permite alfabéticos con punto sin acentos ni ñ ni espacios min 7 max 100',
+	'nuevo_file_characteristic_file_type_KO': 'ERROR - El fichero solo permite ficheros de tipo pdf, doc o docx',
+	'nuevo_file_characteristic_max_size_file_KO': 'ERROR - El tamaño del fichero debe ser igual o menor a 2000000',
+	'nuevo_file_characteristic_no_file_KO': 'ERROR - El campo fichero no puede quedar vacio',
 	'file_characteristic_format_name_file_KO': 'ERROR - El fichero solo permite alfabéticos con punto sin acentos ni ñ ni espacios min 7 max 100',
 	'file_characteristic_file_type_KO': 'ERROR - El fichero solo permite ficheros de tipo pdf, doc o docx',
 	'file_characteristic_max_size_file_KO': 'ERROR - El tamaño del fichero debe ser igual o menor a 2000000',

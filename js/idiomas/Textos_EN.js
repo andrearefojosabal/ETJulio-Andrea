@@ -1,7 +1,7 @@
 let textos_EN = {
 
 	// titles and general texts
-	'text_titulo_app': 'ET2 UI Interface',
+	'text_titulo_app': 'ET Julio UI Interface',
 	'text_titulo_menu': 'Menu Options',
 	'text_titulo_pie': 'Footer',
 
@@ -30,6 +30,7 @@ let textos_EN = {
 	'acronym_project_es_nulo_KO': 'The acronym was not received correctly',
 	'id_sampling_methodology_es_nulo_KO': 'The methodology id was not received correctly',
 	'link_file_project_es_nulo_KO': 'The file link was not received correctly',
+	'ERROR_UPLOAD_file_project_KO': 'The file could not be uploaded correctly',
 
 	'id_characteristic_es_nulo_KO': 'The id was not received correctly',
 	'name_characteristic_es_nulo_KO': 'The name was not received correctly',
@@ -128,10 +129,11 @@ let textos_EN = {
 
 	'start_date_project_format_KO': 'ERROR - Date must be in format dd/mm/yyyy',
 	'start_date_project_valid_KO': 'ERROR - The entered date is not valid',
+	'start_date_project_after_end_KO': 'ERROR - The start date must be before end date',
 
 	'end_date_project_format_KO': 'ERROR - Date must be in format dd/mm/yyyy',
 	'end_date_project_valid_KO': 'ERROR - The entered date is not valid',
-	'end_date_project_before_start_date_project_KO': 'ERROR - The end date must be after start date',
+	'end_date_project_before_start_KO': 'ERROR - The end date must be after start date',
 
 	'responsable_project_min_size_KO': 'ERROR - The responsible must be at least 6 characters long',
 	'responsable_project_max_size_KO': 'ERROR - The responsible must be at most 60 characters long',
@@ -218,6 +220,10 @@ let textos_EN = {
 	'file_characteristic_file_type__KO': 'ERROR - The file must be pdf, doc, or docx',
 	'file_characteristic_max_size_file_KO': 'ERROR - The file size must be at most 2,000,000 bytes',
 	'file_characteristic_no_file_KO': 'ERROR - The file field cannot be empty',
+	'nuevo_file_characteristic_format_name_file_KO': 'ERROR - The file name only allows letters with a dot, no accents, ñ, or spaces',
+	'nuevo_file_characteristic_file_type__KO': 'ERROR - The file must be pdf, doc, or docx',
+	'nuevo_file_characteristic_max_size_file_KO': 'ERROR - The file size must be at most 2,000,000 bytes',
+	'nuevo_file_characteristic_no_file_KO': 'ERROR - The file field cannot be empty',
 
 };
 

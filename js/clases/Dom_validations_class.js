@@ -1,58 +1,64 @@
 class Dom_validations extends Dom {
 
-    comprobar_generico(campo, estructura, accion) {
+    comprobar_generico(campo, estructura, accion) {/*
         let nombreBase = campo;
         if (campo.startsWith('nuevo_')) {
             nombreBase = campo.substring(6);
-        }
+        }*/
 
-        const atributo = estructura.attributes[nombreBase];
+        const atributo = estructura.attributes[campo];
 
         if (!atributo || !atributo.validation_rules || !atributo.validation_rules[accion]) {
+            return true;
+        }
+
+        // Si es SEARCH y el campo está vacío, no validar nada
+        const elemento = document.getElementById(campo);
+        if (accion === 'SEARCH' && elemento && elemento.value.trim() === '') {
             return true;
         }
 
         const reglas = atributo.validation_rules[accion];
         const validaciones = new Validaciones_Atomicas();
         let resultado;
-        if(campo === 'nuevo_file_characteristic') {
-            console.log(campo);
-            console.log(accion);
+        
+        if( campo === 'nuevo_file_analysis_preparation') {
+            console.log('HOLA');
         }
 
         for (const tipo in reglas) {
             const valor = reglas[tipo];
             switch (tipo) {
                 case 'min_size':
+                    console.log('Paso por min_size');
                     resultado = validaciones.min_size(campo, valor[0]);
+                    console.log('Resultado min_size:', resultado);
                     if (!resultado) return valor[1];
                     break;
                 case 'max_size':
+                    console.log('Paso por max_size');
                     resultado = validaciones.max_size(campo, valor[0]);
+                    console.log('Resultado max_size:', resultado);
                     if (!resultado) return valor[1];
                     break;
                 case 'format':
-
+                    console.log('Paso por format');
                     resultado = validaciones.format(campo, valor[0]);
                     if (!resultado) return valor[1];
                     break;
-                case 'no_file':
-                    console.log('POR AQUI PASO 1');
-                    resultado = validaciones.no_file(campo, valor[0]);
-
-                    if (!resultado) return valor[1];
-                    break;
                 case 'file_type':
-                    const tiposArray = valor[0].replace(/'/g, "").split(',').map(t => t.trim());
-                    resultado = validaciones.file_type(document.getElementById(campo).files[0], tiposArray);
+                   // console.log('Paso por file_type');
+                    resultado = validaciones.file_type(campo, valor[0]);
                     if (!resultado) return valor[1];
                     break;
                 case 'max_size_file':
-                    resultado = validaciones.max_size_file(document.getElementById(campo).files[0], valor[0]);
+                    //console.log('Paso por max_size_file');
+                    resultado = validaciones.max_size_file(campo, valor[0]);
                     if (!resultado) return valor[1];
                     break;
                 case 'format_name_file':
-                    resultado = validaciones.format_name_file(document.getElementById(campo).files[0], valor[0]);
+                   // console.log('Paso por format_name_file');
+                    resultado = validaciones.format_name_file(campo, valor[0]);
                     if (!resultado) return valor[1];
                     break;
                 case 'personalized':
@@ -152,13 +158,17 @@ class Dom_validations extends Dom {
         let resultadoGlobal = true;
 
         for (const campo of estructura.attributes_list) {
+            const def = estructura.attributes[campo];
+            // Saltar PK autoincremental en ADD y EDIT
+            if ((validar.accion === 'ADD' || validar.accion === 'EDIT') && def && def.is_pk && def.is_autoincrement) {
+                continue;
+            }
             const metodo = 'comprobar_' + campo;
             if (typeof validar[metodo] === 'function') {
                 const resultado = validar[metodo]();
                 if (!resultado) resultadoGlobal = false;
             }
         }
-
         validar.check_special_tests();
 
         return resultadoGlobal;

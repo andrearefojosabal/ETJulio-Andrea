@@ -6,6 +6,7 @@ class analysis_preparation extends Entidad_Abstracta {
 		this.inicializar();
 	}
 
+	
 	cargar_formulario_html() {
 
 		this.accion = '';
@@ -32,8 +33,8 @@ class analysis_preparation extends Entidad_Abstracta {
 			<span id="div_error_bib_analysis_preparation"><a id="error_bib_analysis_preparation"></a></span>
 			<br>
 
-			<label id="label_file_analysis_preparation" class="file_analysis_preparation"></label>
-            <input type="text" id="file_analysis_preparation" name="file_analysis_preparation"><br>
+			<label id="label_nuevo_file_analysis_preparation" class="nuevo_file_analysis_preparation"></label>
+            <input type="text" id="nuevo_file_analysis_preparation" name="nuevo_file_analysis_preparation"><br>
 			<a id="link_file_analysis_preparation" href="http://193.147.87.202/ET2/filesuploaded/files_file_analysis_preparation/file_analysis_preparation"><img src="./iconos/FILE.png"/></a> <br>
 			<label id="label_nuevo_file_analysis_preparation" class="nuevo_file_analysis_preparation"></label>
 			<input type="file" id="nuevo_file_analysis_preparation" name="nuevo_file_analysis_preparation">

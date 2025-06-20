@@ -123,7 +123,7 @@ const estructura_characteristic = {
                 }
             }
         },
-        file_characteristic: {
+        nuevo_file_characteristic: {
             html: {
                 tag: 'input',
                 type: 'file',
@@ -131,14 +131,14 @@ const estructura_characteristic = {
             },
             validation_rules: {
                 ADD: {
-                    no_file: "nuevo_file_characteristic_no_file_KO",
-                    file_type: [['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'], "nuevo_file_characteristic_file_type_KO"],
+                    no_file : [false, "nuevo_file_characteristic_no_file_KO"], // funcion atomica no obligatorio si no se comprueba que se sube un fichero
+                    file_type: [Array('application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), "nuevo_file_characteristic_file_type_KO"],
                     max_size_file: [200000, "nuevo_file_characteristic_max_size_file_KO"], // funcion atomica tamaño maximo fichero. No obligatorio si no se comprueba tamaño maximo fichero
                     format_name_file: ['^[A-Za-z.]{7,100}$', "nuevo_file_characteristic_format_name_file_KO"] // funcion atomica formato nombre fichero. No obligatorio sino se comprueba el formato del nombre y extension
                 },
                 EDIT: {
-                    no_file: "nuevo_file_characteristic_no_file_KO",
-                    file_type: [['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'], "nuevo_file_characteristic_file_type_KO"],
+                    no_file : [false, "nuevo_file_characteristic_no_file_KO"],
+                    file_type: [Array('application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'), "nuevo_file_characteristic_file_type_KO"],
                     max_size_file: [200000, "nuevo_file_characteristic_max_size_file_KO"], // funcion atomica tamaño maximo fichero. No obligatorio si no se comprueba tamaño maximo fichero
                     format_name_file: ['^[A-Za-z.]{7,100}$', "nuevo_file_characteristic_format_name_file_KO"] // funcion atomica formato nombre fichero. No obligatorio sino se comprueba el formato del nombre y extension
                 },

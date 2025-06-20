@@ -49,7 +49,7 @@ body {
 nav.bordeado {
     width: 100%;
     background: #444;
-    color: #fff;
+    color: #ffffff;
     padding: 0.7rem 0;
     text-align: center;
     font-size: 1.2rem;
@@ -57,12 +57,14 @@ nav.bordeado {
     border-bottom: 2px solid #222;
 }
 
-#div-menu {
-    width: 220px;
-    background: #fff;
+#div-menu{
+    width: 100%;
+
+    background: #ffffff;
     border-right: 1px solid #ccc;
-    position: absolute;
+    position: center;
     top: 110px;
+    text-align: center;
     left: 0;
     z-index: 200;
     display: none;
@@ -88,7 +90,7 @@ nav.bordeado {
 /* --------- Zona de trabajo --------- */
 #workspace {
     margin: 2rem auto 0 auto;
-    max-width: 1200px;
+    width: 100%;
     min-height: 600px;
     background: #fff;
     border-radius: 8px;
@@ -96,7 +98,7 @@ nav.bordeado {
     padding: 2rem;
     position: relative;
 }
-
+/*
 #title_page {
     background: #eaeaea;
     border-radius: 6px;
@@ -117,7 +119,7 @@ nav.bordeado {
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-}
+}*/
 
 #addysearch img {
     width: 32px;
@@ -161,6 +163,7 @@ tbody tr:nth-child(even) {
 }
 
 /* --------- Formularios --------- */
+
 .div_IU_form,
 .div_IU_test {
     width: 100vw;
@@ -199,11 +202,10 @@ tbody tr:nth-child(even) {
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
 }
 
 .class_titulo_form {
-    background: #ffff99;
+    background: #ffaded;
     color: #333;
     border-radius: 6px;
     padding: 1rem;
@@ -250,7 +252,7 @@ tbody tr:nth-child(even) {
 button,
 .formulario button,
 #div_boton button {
-    background: #1976d2;
+    background: #ffabfb;
     color: #fff;
     border: none;
     border-radius: 5px;

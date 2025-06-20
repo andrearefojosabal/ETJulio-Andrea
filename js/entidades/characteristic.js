@@ -5,7 +5,7 @@ class characteristic extends Entidad_Abstracta {
         this.entidad = 'characteristic';
         this.inicializar();
     }
-
+/*
     cargar_formulario_html() {
         this.accion = '';
 
@@ -45,7 +45,7 @@ class characteristic extends Entidad_Abstracta {
             <div id="div_error_bibref_characteristic" class="error"></div>
 
             <label id="label_file_characteristic" class="file_characteristic"></label>
-            <input type="text" id="file_characteristic" name="file_characteristic"><br>
+           <!-- <input type="text" id="file_characteristic" name="file_characteristic"><br>-->
 			<a id="link_file_characteristic" href="http://193.147.87.202/ET2/filesuploaded/files_file_characteristic/file_characteristic"><img src="./iconos/FILE.png"/></a> <br>
 			<label id="label_nuevo_file_characteristic" class="nuevo_file_characteristic"></label>
 			<input type="file" id="nuevo_file_characteristic" name="nuevo_file_characteristic">
@@ -55,5 +55,5 @@ class characteristic extends Entidad_Abstracta {
         `;
         document.getElementById("IU_form").innerHTML = formulario;
         setLang();
-    }
+    }*/
 }
